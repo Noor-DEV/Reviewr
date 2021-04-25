@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext, createContext } from "react";
-import App from "../App";
-const base_url = "http://localhost:3001/api/v1/rests";
+const base_url = "https://reviewrz.herokuapp.com/api/v1/rests";
 const AppContext = createContext();
 const Context = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
@@ -19,6 +18,28 @@ const Context = ({ children }) => {
     location: "",
     price_range: "",
   });
+  const [loading, setLoading] = useState(true);
+  const createRestaurant = () => {
+    fetch(base_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: addName,
+        location: addLocation,
+        price_range: addPr,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        setRestaurants([...restaurants, data]);
+      })
+      .catch((err) => {
+        console.log(err, ">>>>>>>Error in posting service>>>>>>>");
+      });
+  };
   const createReview = (id) => {
     const data = {
       rest_id: id,
@@ -44,7 +65,7 @@ const Context = ({ children }) => {
           })
         );
         setDetails(data.restaurant);
-        console.log(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err, "Error in posting review");
@@ -57,42 +78,41 @@ const Context = ({ children }) => {
       .then((data) => {
         const { restaurants: allRestaurants } = data;
         setRestaurants(allRestaurants);
+        setLoading(false);
       });
   }, []);
   //...
+  const data = {
+    createRestaurant,
+    restaurants,
+    hover,
+    setHover,
+    activeRating,
+    setActiveRating,
+    showForm,
+    setShowForm,
+    user,
+    reviewContent,
+    setUser,
+    setReviewContent,
+    createReview,
+    reviews,
+    details,
+    setDetails,
+    setReviews,
+    addPr,
+    setAddPr,
+    addName,
+    setAddName,
+    addLocation,
+    setAddLocation,
+    showAddForm,
+    setShowAddForm,
+    loading,
+    setLoading,
+  };
 
-  return (
-    <AppContext.Provider
-      value={{
-        restaurants,
-        hover,
-        setHover,
-        activeRating,
-        setActiveRating,
-        showForm,
-        setShowForm,
-        user,
-        reviewContent,
-        setUser,
-        setReviewContent,
-        createReview,
-        reviews,
-        details,
-        setDetails,
-        setReviews,
-        addPr,
-        setAddPr,
-        addName,
-        setAddName,
-        addLocation,
-        setAddLocation,
-        showAddForm,
-        setShowAddForm,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 };
 export const useGlobalContext = () => {
   return useContext(AppContext);

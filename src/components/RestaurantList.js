@@ -2,10 +2,13 @@ import React from "react";
 import Restaurant from "./Restaurant";
 import { useGlobalContext } from "./Context";
 import Nav from "./Nav";
+import Loading from "./Loading";
 const RestaurantList = () => {
-  const { restaurants } = useGlobalContext();
+  const { restaurants, loading } = useGlobalContext();
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Nav />
       <div className="container">

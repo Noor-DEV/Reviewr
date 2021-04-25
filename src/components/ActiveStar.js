@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { useGlobalContext } from "./Context";
 const ActiveStar = () => {

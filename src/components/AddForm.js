@@ -12,7 +12,18 @@ const AddForm = () => {
     setAddPr,
     showAddForm,
     setShowAddForm,
+    createRestaurant,
+    setLoading,
   } = useGlobalContext();
+  const handleSubmit = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    setShowAddForm(false);
+    setAddName("");
+    setAddLocation("");
+    setAddPr(0);
+    createRestaurant();
+  };
   return (
     <div
       className={`addform-container ${showAddForm && "show-addform-container"}`}
@@ -26,18 +37,25 @@ const AddForm = () => {
         }
       }}
     >
-      <form className={`addform ${showAddForm && "show-addform"}`}>
+      <form
+        className={`addform ${showAddForm && "show-addform"}`}
+        onSubmit={handleSubmit}
+      >
         <button
           className="cancel"
           type="button"
           onClick={() => {
             document.body.classList.remove("noscroll");
             setShowAddForm(false);
+            setAddName("");
+            setAddLocation("");
+            setAddPr(0);
           }}
         >
           <FaTimes />
         </button>
         <input
+          required
           type="text"
           className="addName"
           placeholder="Enter Name..."
@@ -45,6 +63,7 @@ const AddForm = () => {
           onChange={(e) => setAddName(e.target.value)}
         />
         <input
+          required
           type="text"
           placeholder="Enter Location..."
           className="addLocation"
@@ -58,7 +77,7 @@ const AddForm = () => {
           placeholder="Select it"
           onChange={(e) => setAddPr(parseInt(e.target.value))}
         >
-          <option value="" hidden selected>
+          <option value="" hidden>
             Choose Price Range
           </option>
           <option value={1}>$</option>

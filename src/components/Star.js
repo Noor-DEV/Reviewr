@@ -1,5 +1,5 @@
 import React from "react";
-import { BsStarFill, BsStarHalf, BsStar, BsShield } from "react-icons/bs";
+import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 const Star = ({ rating }) => {
   const stars = [];
   for (let i = 1; i <= 5; i++) {

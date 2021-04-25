@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { useGlobalContext } from "./Context";
 import Star from "./Star";
 import Form from "./Form";
 import Review from "./Review";
-const url = "http://localhost:3001/api/v1/rests";
+import Loading from "./Loading";
+const url = "https://reviewrz.herokuapp.com/api/v1/rests";
 const RestDetails = () => {
   const {
     showForm,
@@ -13,19 +14,26 @@ const RestDetails = () => {
     setReviews,
     setDetails,
     details,
+    loading,
+    setLoading,
   } = useGlobalContext();
 
   const { id } = useParams();
   useEffect(() => {
+    setLoading(true);
     fetch(`${url}/${id}`)
       .then((res) => res.json())
       .then((data) => {
         const { restaurant: restDetails, reviews } = data;
         setReviews(reviews);
         setDetails(restDetails);
+        setLoading(false);
       });
-  }, []);
-  return (
+  }, [id]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="details">
       {showForm && <Form id={id} />}
       <h1 className="details-name">{details.name}</h1>

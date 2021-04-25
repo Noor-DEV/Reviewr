@@ -310,6 +310,7 @@ input[type="radio"] {
   justify-content: center;
   transform: translateX(100vw);
   transition: all 1s ease-out;
+  border-radius: 1rem;
 }
 .show-addform {
   transform: translate(0);
@@ -322,9 +323,6 @@ input[type="radio"] {
   transition: all 0.5s ease-in-out;
 }
 
-.addform .cancel {
-  color: red;
-}
 @media (max-width: 500px) {
   .addform {
     width: 85%;
@@ -338,17 +336,26 @@ input[type="radio"] {
   }
 }
 .addform input {
-  padding: 0.4rem 1rem;
+  padding: 0.6rem 1rem;
   width: 100%;
+  outline: none;
+  border-radius: 8px;
   font-size: 1.3rem;
   /* border-radius: 10px; */
   background: 0;
   /* outline: none; */
   border: 3px solid gray;
   margin-bottom: 1rem;
+  color: #fff;
+}
+.addform input:focus {
+  box-shadow: 0 0 1rem black;
 }
 .addform select {
-  padding: 0.5rem;
+  transition: all 0.4s ease-out;
+  outline: none;
+  padding: 0.7rem;
+  cursor: pointer;
 }
 .add {
   margin-top: 1rem;
@@ -358,6 +365,11 @@ input[type="radio"] {
   outline: none;
   cursor: pointer;
   border-radius: 0.4rem;
+  transition: all 0.4s ease-out;
+}
+
+.add:hover {
+  background: gold;
 }
 nav.nav {
   display: flex;
@@ -373,7 +385,6 @@ nav.nav {
   cursor: pointer;
   margin-top: 3rem;
   transition: all 0.5s ease-out;
-  display: none;
 }
 .add-service:hover {
   background: #17141d;
@@ -382,4 +393,12 @@ nav.nav {
 }
 .container {
   margin-top: 6rem;
+}
+.loading {
+  width: 100vw;
+  height: 100vh;
+  color: gold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

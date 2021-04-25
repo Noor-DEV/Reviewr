@@ -1,7 +1,6 @@
 import React from "react";
 import { useGlobalContext } from "./Context";
 import AddForm from "./AddForm";
-import { FaSearch } from "react-icons/fa";
 const Nav = () => {
   const { setShowAddForm } = useGlobalContext();
   const handleClick = () => {

@@ -11,8 +11,10 @@ const Form = ({ id }) => {
     reviewContent,
     createReview,
     setActiveRating,
+    setLoading,
   } = useGlobalContext();
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     createReview(id);
     setShowForm(false);

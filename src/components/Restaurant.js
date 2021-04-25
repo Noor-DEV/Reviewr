@@ -10,16 +10,24 @@ const Card = ({
   avg_rating,
   reviews_count,
 }) => {
+  const { setLoading } = useGlobalContext();
   return (
-    <Link to={`/services/${id}`} className="card">
+    <Link
+      to={`/services/${id}`}
+      className="card"
+      onClick={() => setLoading(true)}
+    >
       <h2 className="title one">{name}</h2>
       <div className="middle">
         <p className="location">
-          <span className="indicator">City:</span> {location}
+          <span className="indicator">City: </span>
+          {location}
         </p>
         <p className="price_range">
-          <span className="indicator">price-range:</span>
-          {price_range}
+          <span className="indicator">price-range: </span>
+          {[...Array(price_range)].map(() => {
+            return "$";
+          })}
         </p>
       </div>
       <div className="bottom">
