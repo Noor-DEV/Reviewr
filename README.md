@@ -6,4 +6,4 @@
 ### users can create and review.(It has a responsive reviewing component
 ## The backend part can be found in the Repo ReviewrBackend on this account
 ## The Backend URL =>>>> https://reviewrz.herokuapp.com/
-## The front end URL =>>>>>>>
+## The front end URL =>>>>>>> https://reviewr.netlify.app/
